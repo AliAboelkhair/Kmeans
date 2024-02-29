@@ -13,7 +13,6 @@ data = data.iloc[:, 1:].values #Skipping the first column
 max_clusters = 50  # Determine the range of clusters to try
 inertia_values = []
 
-#Apply K-means clustering for each number of clusters and store inertia
 for num_clusters in range(1, max_clusters + 1):
     kmeans = KMeans(n_clusters=num_clusters, random_state=42)
     kmeans.fit(data)
@@ -137,7 +136,6 @@ def display_cluster_updated(X, labels=[], num_clusters=0):
                 else:
                     for i in range(num_clusters):
                         ax.scatter(X[labels==i, dim1], X[labels==i, dim2], c=color[i], alpha=alpha, s=s)
-                        # You might need to modify the next line if km.cluster_centers_ is not defined
                         ax.scatter(km.cluster_centers_[i][dim1], km.cluster_centers_[i][dim2], c=color[i], marker='x', s=100)
 
         plt.tight_layout()
@@ -147,14 +145,13 @@ def display_cluster_updated(X, labels=[], num_clusters=0):
         else:
             for i in range(num_clusters):
                 plt.scatter(X[labels==i, 0], X[labels==i, 1], c=color[i], alpha=alpha, s=s)
-                # You might need to modify the next line if km.cluster_centers_ is not defined
+               
                 plt.scatter(km.cluster_centers_[i][0], km.cluster_centers_[i][1], c=color[i], marker='x', s=100)
 
-# Call the GUC_Kmean function
+
 Cluster_Assignment, Final_Cluster_Distance,Cluster_Metric= GUC_Kmean(data, K, 'Euclidean')
 
-# Visualize the clusters using your display_cluster_updated function
-#display_cluster_updated(X, labels=Cluster_Assignment, num_clusters=K)
+display_cluster_updated(X, labels=Cluster_Assignment, num_clusters=K)
 plt.show()
 
 
